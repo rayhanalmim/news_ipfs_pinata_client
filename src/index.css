@@ -1,13 +1,292 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  /* Set default dark mode */
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    @apply bg-gradient-to-br from-dark-950 via-dark-900 to-dark-850 text-white font-sans antialiased;
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-dark-950 via-dark-900 to-dark-850 text-white font-sans antialiased;
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  /* Custom scrollbar for dark theme */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #0ea5e9 #1e293b;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-800;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-b from-primary-500 to-accent-500 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply from-primary-400 to-accent-400;
+  }
+
+  /* Custom selection colors */
+  ::selection {
+    @apply bg-primary-500/30 text-white;
+  }
+
+  ::-moz-selection {
+    @apply bg-primary-500/30 text-white;
+  }
+
+  /* Remove default button focus outline and add custom */
+  button:focus,
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.5);
+  }
+
+  /* Link styles */
+  a {
+    @apply text-primary-400 hover:text-primary-300 transition-colors duration-200;
+  }
+
+  /* Code block styling */
+  code {
+    @apply bg-dark-800 text-primary-300 px-2 py-1 rounded text-sm font-mono;
+  }
+
+  pre {
+    @apply bg-dark-800 border border-dark-700 rounded-lg p-4 overflow-x-auto;
+  }
+
+  /* Input placeholder styling */
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-gray-500;
+  }
+
+  /* Custom animations for page load */
+  .page-enter {
+    animation: pageEnter 0.6s ease-out;
+  }
+
+  @keyframes pageEnter {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer components {
+
+  /* Enhanced button components */
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-900 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-500 to-accent-500 text-white shadow-glow hover:shadow-glow-lg hover:scale-105 focus:ring-primary-500;
+  }
+
+  .btn-secondary {
+    @apply bg-dark-800 text-white border border-dark-600 hover:bg-dark-700 hover:border-primary-500 focus:ring-primary-500;
+  }
+
+  .btn-outline {
+    @apply bg-transparent text-primary-400 border border-primary-500 hover:bg-primary-500 hover:text-white focus:ring-primary-500;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-gray-400 hover:text-white hover:bg-dark-800 focus:ring-primary-500;
+  }
+
+  /* Card components */
+  .card {
+    @apply bg-dark-800 border border-dark-700 rounded-xl shadow-card-dark transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:shadow-card-dark-hover hover:-translate-y-1 hover:border-dark-600;
+  }
+
+  .card-glow {
+    @apply relative overflow-hidden;
+  }
+
+  .card-glow::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-primary-500/0 via-primary-500/10 to-primary-500/0 -translate-x-full;
+    animation: shimmer 2s infinite;
+  }
+
+  /* Form components */
+  .form-input {
+    @apply w-full px-4 py-3 bg-dark-800 border border-dark-600 rounded-lg text-white placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors duration-200;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-300 mb-2;
+  }
+
+  .form-error {
+    @apply text-red-400 text-sm mt-1;
+  }
+
+  .form-success {
+    @apply text-green-400 text-sm mt-1;
+  }
+
+  /* Glass morphism effects */
+  .glass {
+    @apply glass-dark backdrop-blur-md;
+  }
+
+  .glass-intense {
+    @apply backdrop-blur-xl;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Navigation components */
+  .nav-item {
+    @apply relative px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-dark-800;
+  }
+
+  .nav-item.active {
+    @apply bg-gradient-to-r from-primary-500/20 to-accent-500/20 text-primary-300 shadow-inner-glow;
+  }
+
+  .nav-item.active::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 w-1/2 h-0.5 bg-gradient-to-r from-primary-500 to-accent-500 transform -translate-x-1/2;
+  }
+
+  /* Status indicators */
+  .status-online {
+    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400 border border-green-500/30;
+  }
+
+  .status-offline {
+    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-500/20 text-red-400 border border-red-500/30;
+  }
+
+  .status-warning {
+    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-500/20 text-yellow-400 border border-yellow-500/30;
+  }
+
+  /* Loading states */
+  .skeleton {
+    @apply bg-dark-700 animate-pulse rounded;
+  }
+
+  .loader {
+    @apply w-6 h-6 border-2 border-dark-600 border-t-primary-500 rounded-full animate-spin;
+  }
+
+  /* Typography enhancements */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent;
+  }
+
+  .glow-text {
+    @apply text-primary-400;
+    text-shadow: 0 0 20px currentColor;
+  }
+
+  /* Special effects */
+  .floating {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  /* Responsive helpers */
+  .container-fluid {
+    @apply w-full max-w-none px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+
+  /* Custom utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+
+  /* Animation utilities */
+  .animate-in {
+    animation: slideInUp 0.6s ease-out;
+  }
+
+  .animate-out {
+    animation: slideOutDown 0.6s ease-in;
+  }
+
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(100px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideOutDown {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    to {
+      opacity: 0;
+      transform: translateY(100px);
+    }
+  }
 }

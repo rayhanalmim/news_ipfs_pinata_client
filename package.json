@@ -23,7 +23,7 @@
     "web3.storage": "^4.5.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node api.js && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -45,5 +45,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.1"
   }
 }
